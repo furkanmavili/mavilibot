@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/furkanmavili/discord/handler"
+	"github.com/furkanmavili/mavili-bot/handler"
 )
 
 func main() {

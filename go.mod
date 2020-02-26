@@ -1,4 +1,4 @@
-module github.com/furkanmavili/discord
+module github.com/furkanmavili/mavili-bot
 
 go 1.13
 

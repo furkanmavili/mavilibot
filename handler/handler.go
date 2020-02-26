@@ -8,7 +8,7 @@ import (
 	"syscall"
 
 	"github.com/bwmarrin/discordgo"
-	"github.com/furkanmavili/discord/commands"
+	"github.com/furkanmavili/mavili-bot/commands"
 )
 
 // Connect  is connection to discord with given token
