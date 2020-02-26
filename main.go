@@ -15,7 +15,7 @@ func main() {
 
 	value, exists := os.LookupEnv("DISCORD_TOKEN")
 	if !exists {
-		log.Println("Token bulunamadı.")
+		log.Println("Token bulunamad?.")
 		return
 	}
 	err := handler.Connect(value);
