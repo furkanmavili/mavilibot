@@ -14,9 +14,8 @@ import (
 func main() {
 	
 	value, exists := os.LookupEnv("DISCORD_TOKEN")
-	log.Println(value)
 	if !exists {
-		log.Println("Token bulunamad?.")
+		log.Println("Token doesn't exist.")
 		return
 	}
 	err := handler.Connect(value);

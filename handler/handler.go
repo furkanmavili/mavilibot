@@ -51,7 +51,6 @@ func manager(s *discordgo.Session, m *discordgo.MessageCreate) {
 	args := strings.Join(seperateMessage[1:], " ")
 	fmt.Println(seperateMessage[0], args)
 
-	//c nin commandlarda olup olmadığını kontrol et.
 
 	result := checkCommand(c)
 	if !result {
