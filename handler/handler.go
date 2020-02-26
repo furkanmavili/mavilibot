@@ -74,11 +74,7 @@ func manager(s *discordgo.Session, m *discordgo.MessageCreate) {
 		if err != nil {
 			panic(err)
 		}
-	case "!delikan":
-		err := commands.Delikan(s, m)
-		if err != nil {
-			panic(err)
-		}
+
 	case "!dice":
 		err := commands.Dice(s, m)
 		if err != nil {
