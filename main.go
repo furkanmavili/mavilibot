@@ -1,26 +1,24 @@
 package main
 
 import (
-	"flag"
+	"log"
+	"os"
 
 	_ "github.com/bwmarrin/discordgo"
 	"github.com/furkanmavili/discord/handler"
 )
 
 // Variables used for command line parameters
-var (
-	Token string
-)
 
-func init() {
-
-	flag.StringVar(&Token, "t", "", "Bot Token")
-	flag.Parse()
-}
 
 func main() {
 
-	err := handler.Connect(Token)
+	value, exists := os.LookupEnv("DISCORD_TOKEN")
+	if !exists {
+		log.Println("Token bulunamadı.")
+		return
+	}
+	err := handler.Connect(value);
 	if err != nil {
 		panic(err)
 	}
