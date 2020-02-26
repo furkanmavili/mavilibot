@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+
 	_ "github.com/bwmarrin/discordgo"
 	"github.com/furkanmavili/discord/handler"
 )
