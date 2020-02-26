@@ -1,15 +1,11 @@
 package main
 
 import (
-	"log"
 	"net/http"
 	"os"
 
-	_ "github.com/bwmarrin/discordgo"
 	"github.com/furkanmavili/discord/handler"
 )
-
-// Variables used for command line parameters
 
 func main() {
 
@@ -17,8 +13,7 @@ func main() {
 
 	value, exists := os.LookupEnv("DISCORD_TOKEN")
 	if !exists {
-		log.Println("Token doesn't exist.")
-		return
+		panic("DISCORD_TOKEN doesn't exist.")
 	}
 	err := handler.Connect(value)
 	if err != nil {
@@ -34,5 +29,4 @@ func herokuListen() {
 	if err := http.ListenAndServe(":"+port, nil); err != nil {
 		panic(err)
 	}
-
 }

@@ -9,19 +9,18 @@ import (
 	"github.com/bwmarrin/discordgo"
 )
 
-var txtlines = quotes()
-
-// Hitler func
-func Hitler(s *discordgo.Session, m *discordgo.MessageCreate) error {
+// Quote func
+func Quote(s *discordgo.Session, m *discordgo.MessageCreate) error {
 
 	rand.Seed(time.Now().UTC().UnixNano())
-	randomquote := txtlines[rand.Intn(len(txtlines)-1)]
+	quote := allQuotes()
+	randomquote := quote[rand.Intn(len(quote)-1)]
 	s.ChannelMessageSend(m.ChannelID, randomquote)
 	return nil
 }
 
-func quotes() []string {
-	file, err := os.Open("txt/hitlerquotes.txt")
+func allQuotes() []string {
+	file, err := os.Open("txt/quotes.txt")
 
 	if err != nil {
 		panic(err)

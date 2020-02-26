@@ -1,0 +1,5 @@
+Commands:
+!delete - delete last message(not finished yet)
+!8ball <question> - answering yes-no question
+!invite - creates guild invite(not finished yet)
+!quote - shares  quotes.

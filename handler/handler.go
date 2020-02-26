@@ -11,8 +11,6 @@ import (
 	"github.com/furkanmavili/discord/commands"
 )
 
-var commandList = []string{"!help", "!answer", "!invite", "!fuhrer", "!delikan", "!dice"}
-
 // Connect  is connection to discord with given token
 func Connect(token string) error {
 	dg, err := discordgo.New("Bot " + token)
@@ -26,6 +24,7 @@ func Connect(token string) error {
 		fmt.Println("error opening connection,", err)
 		return err
 	}
+
 	// Wait here until CTRL-C or other term signal is received.
 	fmt.Println("Bot is now running.  Press CTRL-C to exit.")
 	sc := make(chan os.Signal, 1)
@@ -45,17 +44,16 @@ func manager(s *discordgo.Session, m *discordgo.MessageCreate) {
 	}
 
 	seperateMessage := strings.Split(m.Content, " ")
-	// c girilen komut
 	var c string = seperateMessage[0]
 	c = strings.ToLower(c)
 	args := strings.Join(seperateMessage[1:], " ")
 	fmt.Println(seperateMessage[0], args)
 
-
 	result := checkCommand(c)
 	if !result {
 		return
 	}
+
 	switch c {
 	case "!help":
 		commands.Help(s, m)
@@ -68,12 +66,11 @@ func manager(s *discordgo.Session, m *discordgo.MessageCreate) {
 		if err != nil {
 			panic(err)
 		}
-	case "!fuhrer":
-		err := commands.Hitler(s, m)
+	case "!quote":
+		err := commands.Quote(s, m)
 		if err != nil {
 			panic(err)
 		}
-
 	case "!dice":
 		err := commands.Dice(s, m)
 		if err != nil {
@@ -83,6 +80,7 @@ func manager(s *discordgo.Session, m *discordgo.MessageCreate) {
 }
 
 func checkCommand(c string) bool {
+	var commandList = []string{"!help", "!answer", "!invite", "!quote", "!dice"}
 	for _, v := range commandList {
 		if v == c {
 			return true
