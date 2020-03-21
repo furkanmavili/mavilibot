@@ -12,14 +12,14 @@ import (
 )
 
 // Dice fun
-func Dice(s *discordgo.Session, m *discordgo.MessageCreate) error {
+func Dice(s *discordgo.Session, m *discordgo.MessageCreate) {
 
 	rand.Seed(time.Now().UTC().UnixNano())
 	check := 1 + rand.Intn(6)
 	path := "images/dice" + strconv.Itoa(check) + ".png"
 	f, err := os.Open(path)
 	if err != nil {
-		return err
+		fmt.Println(err)
 	}
 
 	fileReader := io.Reader(f)
@@ -31,8 +31,7 @@ func Dice(s *discordgo.Session, m *discordgo.MessageCreate) error {
 	fmt.Printf("%+v", msg)
 	_, err = s.ChannelMessageSendComplex(m.ChannelID, msg)
 	if err != nil {
-		return err
+		fmt.Println(err)
 		s.ChannelMessageSend(m.ChannelID, "something went horribly wrong!")
 	}
-	return nil
 }

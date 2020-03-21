@@ -10,13 +10,13 @@ import (
 )
 
 // Quote func
-func Quote(s *discordgo.Session, m *discordgo.MessageCreate) error {
+func Quote(s *discordgo.Session, m *discordgo.MessageCreate) {
 
 	rand.Seed(time.Now().UTC().UnixNano())
 	quote := allQuotes()
 	randomquote := quote[rand.Intn(len(quote)-1)]
 	s.ChannelMessageSend(m.ChannelID, randomquote)
-	return nil
+
 }
 
 func allQuotes() []string {
