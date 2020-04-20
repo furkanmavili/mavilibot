@@ -26,8 +26,10 @@ func Connect(token string) error {
 	for _, v := range channels {
 		fmt.Printf("Channel id: %s  Channel name: %s\n", v.ID, v.Name)
 	}
+
+	// This function sends message every hour concurrently.
 	go func() {
-		for range time.NewTicker(time.Minute).C {
+		for range time.NewTicker(time.Hour).C {
 			_, err := dg.ChannelMessageSend("675109890204762143", "dont forget washing ur hands!")
 			if err != nil {
 				log.Println("couldn't send ticker message", err)
@@ -52,7 +54,7 @@ func Connect(token string) error {
 
 func manager(s *discordgo.Session, m *discordgo.MessageCreate) {
 
-	komutlar := Register()
+	komutlar := commands.Register()
 	checkprefix := strings.HasPrefix(m.Content, "!")
 	// ignore all messages bot itself and not starting with prefix
 	if m.Author.ID == s.State.User.ID || !checkprefix {
@@ -64,55 +66,8 @@ func manager(s *discordgo.Session, m *discordgo.MessageCreate) {
 	args := strings.Join(seperateMessage[1:], " ")
 	fmt.Println(seperateMessage[0], args)
 
-	err := route(c, komutlar, s, m)
+	err := commands.Route(c, komutlar, s, m)
 	if err != nil {
 		s.ChannelMessageSend(m.ChannelID, "Böyle bir komut yok!")
 	}
-}
-
-func route(komutAdı string, komutlar map[string]commands.Command, s *discordgo.Session, m *discordgo.MessageCreate) error {
-	val, exists := komutlar[komutAdı]
-	if exists {
-		val.Run(s, m)
-		return nil
-	}
-	return fmt.Errorf("komut bulunamadı")
-}
-
-// Register function
-func Register() map[string]commands.Command {
-
-	quote := commands.Command{
-		Name:        "quote",
-		Description: "prints some quotes",
-		Run:         commands.Quote,
-	}
-	answer := commands.Command{
-		Name:        "answer",
-		Description: "gives answer",
-		Run:         commands.Ball,
-	}
-	dice := commands.Command{
-		Name:        "dice",
-		Description: "roll dice",
-		Run:         commands.Dice,
-	}
-	help := commands.Command{
-		Name:        "help",
-		Description: "bot help",
-		Run:         commands.Help,
-	}
-	invite := commands.Command{
-		Name:        "invite",
-		Description: "creates guild invite",
-		Run:         commands.Invite,
-	}
-	komutlar := map[string]commands.Command{
-		"!quote":  quote,
-		"!answer": answer,
-		"!dice":   dice,
-		"!help":   help,
-		"!invite": invite,
-	}
-	return komutlar
 }
